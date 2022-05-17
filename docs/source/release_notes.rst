@@ -2,7 +2,7 @@ Release notes
 =============
 
 
-Current version: 2.0.4  [Download](/download)
+Current version: 2.0.4  `Download <https://openport.io/download>`_
 -------------------------
 - Fixed issue with restarting sessions from a non-root user.
 - Creating the /etc/openport/users.conf file at installation.

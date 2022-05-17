@@ -1,7 +1,10 @@
- In this guide, replace the xxxxxxxxx by the token you see at the bottom of this page: [https://openport.io/user/keys](https://openport.io/user/keys)
+Automating the installation
+===========================
+
+In this guide, replace the xxxxxxxxx by the token you see at the bottom of this page: [https://openport.io/user/keys](https://openport.io/user/keys)
 
 Windows
-=======
+-------
 
 You can start the installer with the "/S" flag to do a silent installation:
 
@@ -24,8 +27,8 @@ Start your share:
 
 Done!
 
-Linux:
-======
+Linux
+-----
 
 Install the .deb like you are used to:
 

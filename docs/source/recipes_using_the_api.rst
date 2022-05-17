@@ -3,7 +3,7 @@ Using the API
 
 When you have a paying account, you will get access to the openport API.
 Using this API, you can request a list of your clients, and active sessions.
-Find the full specs `here <https://openport.io/api/v2/specs/>`.
+Find the full specs `here <https://openport.io/api/v2/specs/>`_.
 
 Example response:
 
