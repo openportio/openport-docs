@@ -1,11 +1,15 @@
 IP link protection
 ==================
 
- Opening a port from your pc to the internet sounds dangerous, and it is. That's why openport has build-in protection, that requires a user to know a unique token when he wants to access your port.
+.. _security_ip_link_protection:
+
+Opening a port from your pc to the internet sounds dangerous, and it is. That's why openport has build-in protection, that requires a user to know a unique token when he wants to access your port.
 
 Let's say you want to share your ssh connection, you will get something like
 
-    openport 22
+.. code-block::
+
+    $ openport 22
     INFO - Now forwarding remote port openport.io:12345 to localhost:22 .
     You can keep track of your shares at https://openport.io/user .
     You are now connected. You still can transfer 10000 megabyte this month.

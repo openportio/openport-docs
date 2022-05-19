@@ -7,14 +7,14 @@ You can find the source `here <https://github.com/openportio/openport-go>`_
 
 You need to have docker installed.
 
-To install, run
+To compile the code, run
 
 .. code-block::
 
-    docker_compile.sh
+    docker_compile_all.sh
 
 Once that is done, you can run
 
 .. code-block::
 
-    ./openport <port>
+    ./openport-<my-arch> <port>

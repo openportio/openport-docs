@@ -1,11 +1,13 @@
 Release notes
 =============
 
+Also see on `Github <https://github.com/openportio/openport-go/releases>`_
 
-Current version: 2.0.4  `Download <https://openport.io/download>`_
+2.0.4: Latest
 -------------------------
 - Fixed issue with restarting sessions from a non-root user.
 - Creating the /etc/openport/users.conf file at installation.
+`Download here <https://openport.io/download>`_
 
 
 2.0.3

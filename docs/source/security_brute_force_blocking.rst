@@ -1,6 +1,7 @@
 Brute Force
 ===========
 
+.. _security_brute_force_blocking:
 
 By default, a client can only make 10 connections per minute to your machine. You can change this number by going to 'My Openport' > 'Clients' > 'Edit'.
 

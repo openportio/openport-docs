@@ -11,16 +11,12 @@ Contents
 .. toctree::
     usage
     release_notes
-
-    manual_log_files
-    manual_restarting_sessions_on_reboot
-
     build_from_source
-    faq
     infrastructure
     recipes
     limitations
     security
+    faq
     support
     about
 
