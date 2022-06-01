@@ -1,13 +1,18 @@
 Release notes
 =============
 
-Also see on `Github <https://github.com/openportio/openport-go/releases>`_
+Download the client from `Github <https://github.com/openportio/openport-go/releases>`_
 
-2.0.4: Latest
+2.1.0: Latest
+--------------
+- Adding --exit-on-failure-timeout flag (Specify in seconds if you want the app to exit if it cannot properly connect. (default -1))
+- Code refactoring
+
+
+2.0.4
 -------------------------
 - Fixed issue with restarting sessions from a non-root user.
 - Creating the /etc/openport/users.conf file at installation.
-`Download here <https://openport.io/download>`_
 
 
 2.0.3
@@ -65,8 +70,8 @@ Also see on `Github <https://github.com/openportio/openport-go/releases>`_
 
 0.9.1
 -----
-- [IP Link Protection](/wiki/security/ip_link_protection/)
-- [Brute force protection](/wiki/security/brute_force_blocking/)
+- IP Link Protection
+- Brute force protection
 - Various bug fixes
 - Cleaner output
 
