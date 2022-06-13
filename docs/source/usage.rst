@@ -37,6 +37,10 @@ After creating an account, get your token from https://openport.io/user/keys
 
 After registration, your client and sessions will appear on the clients and sessions page.
 
+Notes:
+
+- If the client was already registered under a different account, it will be unregistered from that account
+- Be careful when registering clients with sudo, in some cases this registers the wrong key because the $HOME variable is changed. (running openport as root is not recommended in any case).
 
 
 Extra options
