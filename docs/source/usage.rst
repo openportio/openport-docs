@@ -26,13 +26,25 @@ Examples:
     openport 8080 --http-forward
     openport 3389 --restart-on-reboot
 
+Linking a key to your account
+_____________________________
+
+After creating an account, get your token from https://openport.io/user/keys
+
+.. code-block::
+
+    openport register-key <your-token>
+
+After registration, your client and sessions will appear on the clients and sessions page.
+
+
 
 Extra options
 _____________
 
 .. code-block::
 
-    Usage: openport (<port> | forward | list | kill | kill-all | register | help )
+    Usage: openport (<port> | forward | list | kill | kill-all | register-key | help )
     Default: openport <port> [arguments]
       -d, --daemonize                     Start the app in the background.
           --exit-on-failure-timeout int   Specify in seconds if you want the app to exit if it cannot properly connect. (default -1)

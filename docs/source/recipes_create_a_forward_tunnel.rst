@@ -8,7 +8,7 @@ Both locations are firewalled and do not allow outgoing connections to ports oth
 
 On my home pc: I use the commands
 
-    openport --register-key xxxxxxxx # From your https://openport.io/user/keys page
+    openport register-key xxxxxxxx # From your https://openport.io/user/keys page
     openport 22 --restart-on-reboot
 
 Which gives me the output:
@@ -17,8 +17,8 @@ Which gives me the output:
 
 On my work pc: I use the command
 
-    openport --register-key xxxxxxxx # From your https://openport.io/user/keys page
-    openport --forward-tunnel --remote-port 4104 -R
+    openport register-key xxxxxxxx # From your https://openport.io/user/keys page
+    openport forward --remote-port 4104 -R
 
 Which will give me the output:
 
