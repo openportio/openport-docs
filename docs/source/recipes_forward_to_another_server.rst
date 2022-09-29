@@ -7,6 +7,8 @@ Let's say there is a webserver (port 80) running on A:
 
 On B you run:
 
+.. code-block::
+
     ssh -L 8000:<ip from A>:80 <user_on_B>@localhost
     openport 8000
 
