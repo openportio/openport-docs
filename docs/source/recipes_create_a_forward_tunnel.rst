@@ -1,4 +1,4 @@
-No outgoing traffic allowed on port 22
+Creating a forward tunnel
 =======================
 
 Consider next scenario:
