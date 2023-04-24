@@ -1,5 +1,5 @@
-Using the API
-==============
+API
+===
 
 To access the API, you need to have a paying account.
 Using this API, you can request a list of your clients, active sessions, etc.
