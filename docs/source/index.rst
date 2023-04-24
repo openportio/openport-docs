@@ -11,6 +11,7 @@ Contents
 .. toctree::
     usage
     release_notes
+    api
     build_from_source
     infrastructure
     recipes
