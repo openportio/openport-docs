@@ -1,5 +1,5 @@
 Forward to another server
-========================
+=========================
 
 If you have a device (let's call it machine A) that you cannot reach from your home (H), but you have another device (let's call it machine B) that does can reach machine A, you can forward your requests from H to B to A using these commands:
 

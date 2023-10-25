@@ -34,3 +34,4 @@ Share remote desktop:
     recipes_share_a_file
     recipes_testing_facebook_buttons
     recipes_using_openport_with_nodejs
+    recipes_blocking_keys

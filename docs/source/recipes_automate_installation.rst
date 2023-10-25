@@ -1,7 +1,7 @@
 Automating the installation
 ===========================
 
-In this guide, replace the xxxxxxxxx by the token you see at the bottom of this page: [https://openport.io/user/keys](https://openport.io/user/keys)
+In this guide, replace the xxxxxxxxx by the token you see at the bottom of this page: `https://openport.io/user/keys <https://openport.io/user/keys>`_
 
 Windows
 -------
