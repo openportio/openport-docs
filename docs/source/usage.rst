@@ -48,18 +48,21 @@ _____________
 
 .. code-block::
 
-    Usage: openport (<port> | forward | list | kill | kill-all | register-key | help )
-    Default: openport <port> [arguments]
       -d, --daemonize                     Start the app in the background.
           --exit-on-failure-timeout int   Specify in seconds if you want the app to exit if it cannot properly connect. (default -1)
+      -h, --help                          Show help message
           --http-forward                  Request an http forward, so you can connect to port 80 on the server.
           --ip-link-protection string     Let users click a secret link before they can access this port. This overwrites the setting in your profile. choices=[True, False]
           --keep-alive int                The interval in between keep-alive messages in seconds. (default 120)
+          --local-port int                The local port you want to expose. (default -1)
+          --no-ssl                        Connect to the Openport servers without using SSL (only used if the --ws flag is set)
           --port int                      The local port you want to expose. (default -1)
           --proxy string                  Socks5 proxy to use. Format: socks5://user:pass@host:port
-          --remote-port string            The remote port on the server. [openport.io:1234] (default "-1")
+          --remote-port string            The server and port you want to expose locally. [openport.io:1234] (default "-1")
       -R, --restart-on-reboot             Restart this session when 'restart-sessions' is called (on boot for example).
       -v, --verbose                       Verbose logging
+          --ws                            Use the websockets protocol instead of ssh.
+
 
 Files used
 __________
