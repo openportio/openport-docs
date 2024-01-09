@@ -8,7 +8,7 @@ Download the client from `Github <https://github.com/openportio/openport-go/rele
 Features/improvements:
 
 - Added --ws flag to use websockets to connect instead of ssh. (Use in combination with --no-ssl to create an unencrypted tunnel).
-- mimproved help messages.
+- Improved help messages.
 - adding the hostname to the ssh keys when creating new keys.
 - added "rm" command to remove sessions from the local database.
 - "register", "restartsessions", "link" are now also valid commands
