@@ -3,7 +3,34 @@ Release notes
 
 Download the client from `Github <https://github.com/openportio/openport-go/releases>`_
 
-2.1.0: Latest
+2.2.0: Latest
+--------------
+Features/improvements:
+
+- Added --ws flag to use websockets to connect instead of ssh. (Use in combination with --no-ssl to create an unencrypted tunnel).
+- mimproved help messages.
+- adding the hostname to the ssh keys when creating new keys.
+- added "rm" command to remove sessions from the local database.
+- "register", "restartsessions", "link" are now also valid commands
+- Added an improved windows service.
+- Smaller binaries by removing debug flags from compilation.
+- Using static linking to improve portability.
+
+Bugfixes:
+
+- Fixed "(no such table: sessions)" error
+- Flagging sessions as automatically restarted when they are started from "restart-sessions"
+- Fixed database issues.
+
+Various:
+
+- Upgraded to golang version 1.21.5
+- Also releasing the raw binaries
+- The armv7 binary have been tested on an openwrt router.
+
+
+
+2.1.0
 --------------
 - Adding --exit-on-failure-timeout flag (Specify in seconds if you want the app to exit if it cannot properly connect. (default -1))
 - Code refactoring
