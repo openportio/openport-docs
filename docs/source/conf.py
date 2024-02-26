@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'Openport'
-copyright = '2022, iTech'
+copyright = '2024, iTech'
 author = 'Jan De Bleser'
 
 release = '2.0'
