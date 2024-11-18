@@ -64,6 +64,37 @@ _____________
           --ws                            Use the websockets protocol instead of ssh.
 
 
+Open-for-ip-link
+----------------
+
+To add an extra layer of security, all ports that are opened are by default protected by the open-for-ip-link feature.
+This means that the user needs to click a link containing a token to access the forwarded port.
+
+This can be disabled:
+
+- by setting the --ip-link-protection flag to False when starting a session.
+- by unchecking the "ip link protection" checkbox when editing a key on `the Keys page on your account <https://openport.io/user/keys>`_ .
+
+Clicked links are valid for 24 hours.
+
+You can check who clicked the links by using the API. https://openport.io/api/v2/openforiplinkclicks/
+See the :ref:`documentation<api-open-for-ip-link-click>` for more information.
+
+
+
+Volatile ports
+______________
+
+Each session opens a port on the openport servers. Because ports are not unlimited, it is possible that ports are reused.
+We try to keep the same port for per key/local_port pair, but this is not guaranteed.
+
+If you need a fixed address for an http server, you can use the "redirect_url" that are provided in the session api. For example: https://openport.io/r/pdDrqgF7/22 The links
+are fixed per key. Following the link will redirect you to the correct server:port combination. You still need to click the open-for-ip-link if set.
+You can set the local port in the last segment of the url.
+
+See here for more information about the API click :ref:`here <api-sessions>`.
+
+
 Files used
 __________
 

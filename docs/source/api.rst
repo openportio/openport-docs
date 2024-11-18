@@ -1,3 +1,5 @@
+.. _api:
+
 API
 ===
 
@@ -5,6 +7,7 @@ To access the API, you need to have a paying account.
 Using this API, you can request a list of your clients, active sessions, etc.
 Find the full OpenAPI specs `here <https://api.openport.io/api/v2/specs/>`_.
 
+.. _api-sessions:
 
 Sessions
 --------
@@ -84,6 +87,7 @@ Supported Methods:
             }
     }
 
+.. _api-open-for-ip-link-click:
 
 Open-For-IP Link Clicks
 -----------------------
