@@ -12,6 +12,7 @@ Contents
     :maxdepth: 2
 
     usage
+    http_forwarding
     release_notes
     user_zone
     api

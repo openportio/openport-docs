@@ -1,5 +1,5 @@
 Running a command on all devices
-==========================
+================================
 
 You can use the following bash script to run a command on all devices that have opened port 22. This script uses
 the Openport API to get a list of all devices, and then runs a command

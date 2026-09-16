@@ -26,6 +26,8 @@ Examples:
     openport 8080 --http-forward
     openport 3389 --restart-on-reboot
 
+.. _register-key:
+
 Linking a key to your account
 _____________________________
 
@@ -55,7 +57,7 @@ _____________
           --ip-link-protection string     Let users click a secret link before they can access this port. This overwrites the setting in your profile. choices=[True, False]
           --keep-alive int                The interval in between keep-alive messages in seconds. (default 120)
           --local-port int                The local port you want to expose. (default -1)
-          --no-ssl                        Connect to the Openport servers without using SSL (only used if the --ws flag is set)
+          --no-ssl                        INSECURE: Connect to the Openport servers unencrypted, exposing all tunnelled traffic to the network (only used if the --ws flag is set)
           --port int                      The local port you want to expose. (default -1)
           --proxy string                  Socks5 proxy to use. Format: socks5://user:pass@host:port
           --remote-port string            The server and port you want to expose locally. [openport.io:1234] (default "-1")
@@ -63,6 +65,15 @@ _____________
       -v, --verbose                       Verbose logging
           --ws                            Use the websockets protocol instead of ssh.
 
+.. warning::
+
+   ``--no-ssl`` disables encryption on the connection between the client and the
+   Openport servers (it only has an effect in combination with ``--ws``). Anyone on
+   the network path can then read and modify all tunnelled traffic. Only use it for
+   debugging on networks you fully trust.
+
+
+.. _open-for-ip-link:
 
 Open-for-ip-link
 ----------------
@@ -82,11 +93,22 @@ See the :ref:`documentation<api-open-for-ip-link-click>` for more information.
 
 
 
+Http forwarding
+_______________
+
+With the ``--http-forward`` option, your session also gets its own hostname
+(for example ``axkwj.u.openport.io``) that serves your local port over http and
+https on the standard ports, with a valid certificate. See
+:doc:`http_forwarding` for details and limitations.
+
 Volatile ports
 ______________
 
 Each session opens a port on the openport servers. Because ports are not unlimited, it is possible that ports are reused.
 We try to keep the same port for per key/local_port pair, but this is not guaranteed.
+The same goes for the hostname of an http-forwarded session: it is kept when the
+same client restarts the session, but a new one is assigned if the session cannot
+be matched to the previous one.
 
 If you need a fixed address for an http server, you can use the "redirect_url" that are provided in the session api. For example: https://openport.io/r/pdDrqgF7/22 The links
 are fixed per key. Following the link will redirect you to the correct server:port combination. You still need to click the open-for-ip-link if set.
