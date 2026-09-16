@@ -57,13 +57,20 @@ _____________
           --ip-link-protection string     Let users click a secret link before they can access this port. This overwrites the setting in your profile. choices=[True, False]
           --keep-alive int                The interval in between keep-alive messages in seconds. (default 120)
           --local-port int                The local port you want to expose. (default -1)
-          --no-ssl                        Connect to the Openport servers without using SSL (only used if the --ws flag is set)
+          --no-ssl                        INSECURE: Connect to the Openport servers unencrypted, exposing all tunnelled traffic to the network (only used if the --ws flag is set)
           --port int                      The local port you want to expose. (default -1)
           --proxy string                  Socks5 proxy to use. Format: socks5://user:pass@host:port
           --remote-port string            The server and port you want to expose locally. [openport.io:1234] (default "-1")
       -R, --restart-on-reboot             Restart this session when 'restart-sessions' is called (on boot for example).
       -v, --verbose                       Verbose logging
           --ws                            Use the websockets protocol instead of ssh.
+
+.. warning::
+
+   ``--no-ssl`` disables encryption on the connection between the client and the
+   Openport servers (it only has an effect in combination with ``--ws``). Anyone on
+   the network path can then read and modify all tunnelled traffic. Only use it for
+   debugging on networks you fully trust.
 
 
 .. _open-for-ip-link:
