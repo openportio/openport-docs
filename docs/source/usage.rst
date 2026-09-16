@@ -26,6 +26,8 @@ Examples:
     openport 8080 --http-forward
     openport 3389 --restart-on-reboot
 
+.. _register-key:
+
 Linking a key to your account
 _____________________________
 
@@ -64,6 +66,8 @@ _____________
           --ws                            Use the websockets protocol instead of ssh.
 
 
+.. _open-for-ip-link:
+
 Open-for-ip-link
 ----------------
 
@@ -82,11 +86,22 @@ See the :ref:`documentation<api-open-for-ip-link-click>` for more information.
 
 
 
+Http forwarding
+_______________
+
+With the ``--http-forward`` option, your session also gets its own hostname
+(for example ``axkwj.u.openport.io``) that serves your local port over http and
+https on the standard ports, with a valid certificate. See
+:doc:`http_forwarding` for details and limitations.
+
 Volatile ports
 ______________
 
 Each session opens a port on the openport servers. Because ports are not unlimited, it is possible that ports are reused.
 We try to keep the same port for per key/local_port pair, but this is not guaranteed.
+The same goes for the hostname of an http-forwarded session: it is kept when the
+same client restarts the session, but a new one is assigned if the session cannot
+be matched to the previous one.
 
 If you need a fixed address for an http server, you can use the "redirect_url" that are provided in the session api. For example: https://openport.io/r/pdDrqgF7/22 The links
 are fixed per key. Following the link will redirect you to the correct server:port combination. You still need to click the open-for-ip-link if set.

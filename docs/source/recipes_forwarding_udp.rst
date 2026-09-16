@@ -8,7 +8,7 @@ This guide uses the command "socat" which is included in most Linux distribution
 Let's say you want to forward UDP port 1054 on machine A.
 
 On Machine A:
----
+_____________
 
 [Optional] If you want to start a UDP server to test:
 

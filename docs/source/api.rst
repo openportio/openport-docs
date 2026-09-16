@@ -38,11 +38,23 @@ Supported methods:
                 "port": 40497,
                 "local_port": 8081,
                 "server": "openport.io",
-                "http_forwarding_address": null,
+                "http_forwarding_address": "axkwj.u.openport.io",
                 "open_port_for_ip_link": "https://www.openport.io/l/40497/",
                 "redirect_url": "https://www.openport.io/r/LDnIs6MF/8081"
             }
         }
+
+Fields:
+
+- ``server`` / ``port``: the public address of the session
+  (``openport.io:40497`` in the second example above).
+- ``local_port``: the port that is being forwarded on the client machine.
+- ``http_forwarding_address``: the hostname of the session when it was started
+  with ``--http-forward``, ``null`` otherwise. See :doc:`http_forwarding`.
+- ``open_port_for_ip_link``: the link to click to whitelist your IP address,
+  when :ref:`ip-link protection <open-for-ip-link>` is active.
+- ``redirect_url``: a fixed-per-key link that redirects to the current address
+  of the session for that local port (see "Volatile ports" in :doc:`usage`).
 
 Keys
 ----
