@@ -17,11 +17,12 @@ regular TCP port, your session gets its own hostname:
 
     $ openport 8080 --http-forward
     ...
-    You are now connected. Your local port 8080 is now available on http://axkwj.u.openport.io
+    You are now connected. Your local port 8080 is now available on http://axkwjptb.u.openport.io
 
-The hostname has the form ``<5 random letters>.u.<server>``, for example
-``axkwj.u.openport.io`` or ``axkwj.u.spr.openport.io``, depending on which
-server your session lands on.
+The hostname has the form ``<8 random letters>.u.<server>``, for example
+``axkwjptb.u.openport.io`` or ``axkwjptb.u.spr.openport.io``, depending on which
+server your session lands on. The random part is a secret, so the address
+cannot be guessed.
 
 Requests to this hostname are accepted on the standard ports:
 
@@ -47,11 +48,11 @@ Because WebSockets are supported, you can reach a `Home Assistant
 
     openport 8123 --http-forward -R
 
-Use the resulting ``https://<xxxxx>.u.openport.io`` address as the external
+Use the resulting ``https://<xxxxxxxx>.u.openport.io`` address as the external
 URL, and add that hostname to Home Assistant's ``http:`` configuration
 (``use_x_forwarded_for`` / ``trusted_proxies``, and ``cors_allowed_origins``
-if needed). Home Assistant provides its own login, so this pairs well with
-disabling the ip-link protection for that key (see `Access control`_).
+if needed). No open-for-ip-link click is needed to reach it (see `Access
+control`_); Home Assistant provides its own login on top.
 
 Requirements
 ------------
@@ -82,26 +83,25 @@ The proxy sets the following headers on forwarded requests:
 
 - ``X-Forwarded-For``: the IP address of the visitor.
 - ``X-Forwarded-Host``: the public hostname the visitor used
-  (``<xxxxx>.u.openport.io``).
+  (``<xxxxxxxx>.u.openport.io``).
 - ``X-Forwarded-Proto``: ``http`` or ``https``.
-- ``Host``: the public forwarded hostname (``<xxxxx>.u.openport.io``). If your
+- ``Host``: the public forwarded hostname (``<xxxxxxxx>.u.openport.io``). If your
   application maintains a list of allowed hosts, add this hostname to it.
 
 Access control
 --------------
 
-The :ref:`open-for-ip-link <open-for-ip-link>` protection applies to
-http-forwarded sessions like it does to regular sessions. While it is active,
-visiting the forwarded address before clicking the link returns **403
-Forbidden**; after the visitor's IP has clicked the link the site is reachable
-for 24 hours. It can be disabled with ``--ip-link-protection False`` (or per
-key on the Keys page) — do that when the address changes between visitors or
-networks (for example a phone on mobile data) and your application has its own
-login.
+The forwarding address is itself the secret: anyone who knows the full
+``<8 random letters>.u.openport.io`` address can reach your application, and
+**no open-for-ip-link click is required** (the :ref:`open-for-ip-link
+<open-for-ip-link>` protection only gates the raw ``openport.io:<port>``
+address, not the http-forward hostname). The address cannot be guessed — it is
+8 random letters, and the server rate-limits requests to unknown addresses to
+one per second per IP.
 
-There is no login page or client-certificate check on the forwarded hostname
-itself, so an application without ip-link protection must provide its own
-authentication.
+There is no login page or client-certificate check on the forwarded hostname,
+so treat the address as a secret and give the application its own
+authentication if the data behind it is sensitive.
 
 Limitations
 -----------
