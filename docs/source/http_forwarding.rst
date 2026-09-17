@@ -31,6 +31,27 @@ Requests to this hostname are accepted on the standard ports:
 
 The Openport server looks at the hostname of each incoming request and proxies
 it to the tunnel of the matching session, which delivers it to your local port.
+The connection is passed through transparently, so **WebSockets, streaming
+responses (Server-Sent Events, chunked transfers) and every HTTP method work**,
+and long-lived connections stay open. This makes it suitable for full web
+applications, not just simple request/response sites.
+
+Home Assistant
+--------------
+
+Because WebSockets are supported, you can reach a `Home Assistant
+<https://www.home-assistant.io/>`_ instance (including its
+``/api/websocket`` connection) from anywhere:
+
+.. code-block::
+
+    openport 8123 --http-forward -R
+
+Use the resulting ``https://<xxxxx>.u.openport.io`` address as the external
+URL, and add that hostname to Home Assistant's ``http:`` configuration
+(``use_x_forwarded_for`` / ``trusted_proxies``, and ``cors_allowed_origins``
+if needed). Home Assistant provides its own login, so this pairs well with
+disabling the ip-link protection for that key (see `Access control`_).
 
 Requirements
 ------------
@@ -62,37 +83,32 @@ The proxy sets the following headers on forwarded requests:
 - ``X-Forwarded-For``: the IP address of the visitor.
 - ``X-Forwarded-Host``: the public hostname the visitor used
   (``<xxxxx>.u.openport.io``).
-- ``Host`` is rewritten to ``127.0.0.1:<your local port>``. If your
-  application validates the ``Host`` header, allow this value or configure it
-  to trust the ``X-Forwarded-Host`` header instead.
+- ``X-Forwarded-Proto``: ``http`` or ``https``.
+- ``Host``: the public forwarded hostname (``<xxxxx>.u.openport.io``). If your
+  application maintains a list of allowed hosts, add this hostname to it.
 
 Access control
 --------------
 
 The :ref:`open-for-ip-link <open-for-ip-link>` protection applies to
-http-forwarded sessions like it does to regular sessions, and can be disabled
-the same way (``--ip-link-protection False`` or per key on the Keys page).
-There is no login page or client-certificate check on the forwarded hostname:
-anyone who can reach the address gets through to your application, so make
-sure the application has its own authentication.
+http-forwarded sessions like it does to regular sessions. While it is active,
+visiting the forwarded address before clicking the link returns **403
+Forbidden**; after the visitor's IP has clicked the link the site is reachable
+for 24 hours. It can be disabled with ``--ip-link-protection False`` (or per
+key on the Keys page) — do that when the address changes between visitors or
+networks (for example a phone on mobile data) and your application has its own
+login.
+
+There is no login page or client-certificate check on the forwarded hostname
+itself, so an application without ip-link protection must provide its own
+authentication.
 
 Limitations
 -----------
 
-HTTP forwarding is a simple request/response proxy. See
-:doc:`limitations` for the full list; the highlights:
-
-- **WebSockets are not supported.** Applications that need a WebSocket
-  connection (for example Home Assistant's ``/api/websocket``) will not work
-  through ``--http-forward``. Use the regular TCP port for those.
-- Server-Sent Events, streaming and chunked responses are not supported;
-  responses are buffered and delivered in one piece.
-- Request bodies are only forwarded for ``POST`` requests. ``PUT``, ``PATCH``
-  and ``DELETE`` requests are forwarded, but their bodies are dropped.
-- Long-running requests are cut off after 30 seconds.
 - The hostname is always randomly generated. Custom or vanity domains are not
   supported.
 
-If you hit any of these, you can always fall back to the raw TCP port of the
-same session — that path proxies bytes without interpreting them, so
-WebSockets, streaming and all HTTP methods work there.
+Everything else a web application typically needs works: HTTPS with a valid
+certificate, WebSockets, streaming/Server-Sent Events, chunked responses,
+long-lived connections and all HTTP methods.
