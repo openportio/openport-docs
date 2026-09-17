@@ -27,6 +27,7 @@ Share remote desktop:
 
 
 .. toctree::
+    recipes_home_assistant
     recipes_automate_installation
     recipes_create_a_forward_tunnel
     recipes_forward_to_another_server
