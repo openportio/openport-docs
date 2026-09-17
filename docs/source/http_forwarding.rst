@@ -21,8 +21,8 @@ regular TCP port, your session gets its own hostname:
 
 The hostname has the form ``<8 random letters>.u.<server>``, for example
 ``axkwjptb.u.openport.io`` or ``axkwjptb.u.spr.openport.io``, depending on which
-server your session lands on. The random part is a secret, so the address
-cannot be guessed.
+server your session lands on. The random part makes the address impractical to
+guess (see `Access control`_ for what that does and does not protect).
 
 Requests to this hostname are accepted on the standard ports:
 
@@ -91,17 +91,21 @@ The proxy sets the following headers on forwarded requests:
 Access control
 --------------
 
-The forwarding address is itself the secret: anyone who knows the full
-``<8 random letters>.u.openport.io`` address can reach your application, and
-**no open-for-ip-link click is required** (the :ref:`open-for-ip-link
-<open-for-ip-link>` protection only gates the raw ``openport.io:<port>``
-address, not the http-forward hostname). The address cannot be guessed — it is
-8 random letters, and the server rate-limits requests to unknown addresses to
-one per second per IP.
+Anyone who knows the full ``<8 random letters>.u.openport.io`` address can
+reach your application: **no open-for-ip-link click is required** (the
+:ref:`open-for-ip-link <open-for-ip-link>` protection only gates the raw
+``openport.io:<port>`` address, not the http-forward hostname).
+
+The address is hard to *guess* — it is 8 random letters, and the server
+rate-limits requests to unknown addresses to one per second per IP, so it
+cannot be brute-forced. It is **not** confidential, though: like any public
+hostname it travels in clear text in DNS lookups and in the TLS handshake
+(SNI), so it is visible to DNS resolvers, to the network path, and to services
+that record observed hostnames. Treat it as an unguessable URL, not a secret.
 
 There is no login page or client-certificate check on the forwarded hostname,
-so treat the address as a secret and give the application its own
-authentication if the data behind it is sensitive.
+so **anything sensitive behind an http forward must have its own
+authentication** — don't rely on the address alone to keep it private.
 
 Limitations
 -----------
