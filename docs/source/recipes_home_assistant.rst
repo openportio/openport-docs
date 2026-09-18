@@ -51,5 +51,5 @@ Since your Home Assistant login page becomes reachable from the internet, make
 sure every user has a strong password, and consider enabling
 `multi-factor authentication <https://www.home-assistant.io/docs/authentication/multi-factor-auth/>`_.
 
-See the `add-on documentation <https://github.com/jandebleser/home-assistant-addons/blob/main/openport/DOCS.md>`_
+See the `add-on documentation <https://github.com/jandebleser/home-assistant-addons/blob/master/openport/DOCS.md>`_
 for all options and troubleshooting.
