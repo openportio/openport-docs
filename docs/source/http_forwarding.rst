@@ -107,12 +107,9 @@ There is no login page or client-certificate check on the forwarded hostname,
 so **anything sensitive behind an http forward must have its own
 authentication** — don't rely on the address alone to keep it private.
 
-Limitations
------------
+Custom domains
+--------------
 
-- The hostname is always randomly generated. Custom or vanity domains are not
-  supported.
-
-Everything else a web application typically needs works: HTTPS with a valid
-certificate, WebSockets, streaming/Server-Sent Events, chunked responses,
-long-lived connections and all HTTP methods.
+The generated hostname is not the only option: since client 2.3.0 you can
+serve the session on a domain you own, with the TLS connection ending on your
+own machine instead of on the Openport servers. See :doc:`custom_domains`.

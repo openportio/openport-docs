@@ -13,6 +13,7 @@ Contents
 
     usage
     http_forwarding
+    custom_domains
     release_notes
     user_zone
     api

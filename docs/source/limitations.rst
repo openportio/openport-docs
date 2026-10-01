@@ -3,9 +3,11 @@ Known limitations
 
 Http forwarding
 ---------------
-The ``--http-forward`` hostname (see :doc:`http_forwarding`) is always randomly
-generated; custom or vanity domains are not supported. WebSockets, streaming,
-long-lived connections and all HTTP methods do work over it.
+WebSockets, streaming, long-lived connections and all HTTP methods work over
+``--http-forward``, and you can serve the session on your own domain (see
+:doc:`custom_domains`). A custom domain needs a real CNAME record, so apex
+domains and proxied or flattened DNS records cannot be used, and a
+custom-domain forward is reachable over https only.
 
 UDP
 ---
