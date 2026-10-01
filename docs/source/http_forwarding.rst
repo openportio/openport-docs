@@ -42,7 +42,10 @@ Home Assistant
 
 Because WebSockets are supported, you can reach a `Home Assistant
 <https://www.home-assistant.io/>`_ instance (including its
-``/api/websocket`` connection) from anywhere:
+``/api/websocket`` connection) from anywhere. The easiest way is the
+`Openport Home Assistant add-on
+<https://github.com/openportio/home-assistant-addons>`_, which runs the
+client inside Home Assistant for you. To run the client manually instead:
 
 .. code-block::
 
