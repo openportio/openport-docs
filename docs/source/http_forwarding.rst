@@ -17,11 +17,12 @@ regular TCP port, your session gets its own hostname:
 
     $ openport 8080 --http-forward
     ...
-    You are now connected. Your local port 8080 is now available on http://axkwj.u.openport.io
+    You are now connected. Your local port 8080 is now available on http://axkwjptb.u.openport.io
 
-The hostname has the form ``<5 random letters>.u.<server>``, for example
-``axkwj.u.openport.io`` or ``axkwj.u.spr.openport.io``, depending on which
-server your session lands on.
+The hostname has the form ``<8 random letters>.u.<server>``, for example
+``axkwjptb.u.openport.io`` or ``axkwjptb.u.spr.openport.io``, depending on which
+server your session lands on. The random part makes the address impractical to
+guess (see `Access control`_ for what that does and does not protect).
 
 Requests to this hostname are accepted on the standard ports:
 
@@ -31,6 +32,30 @@ Requests to this hostname are accepted on the standard ports:
 
 The Openport server looks at the hostname of each incoming request and proxies
 it to the tunnel of the matching session, which delivers it to your local port.
+The connection is passed through transparently, so **WebSockets, streaming
+responses (Server-Sent Events, chunked transfers) and every HTTP method work**,
+and long-lived connections stay open. This makes it suitable for full web
+applications, not just simple request/response sites.
+
+Home Assistant
+--------------
+
+Because WebSockets are supported, you can reach a `Home Assistant
+<https://www.home-assistant.io/>`_ instance (including its
+``/api/websocket`` connection) from anywhere. The easiest way is the
+`Openport Home Assistant add-on
+<https://github.com/openportio/home-assistant-addons>`_, which runs the
+client inside Home Assistant for you. To run the client manually instead:
+
+.. code-block::
+
+    openport 8123 --http-forward -R
+
+Use the resulting ``https://<xxxxxxxx>.u.openport.io`` address as the external
+URL, and add that hostname to Home Assistant's ``http:`` configuration
+(``use_x_forwarded_for`` / ``trusted_proxies``, and ``cors_allowed_origins``
+if needed). No open-for-ip-link click is needed to reach it (see `Access
+control`_); Home Assistant provides its own login on top.
 
 Requirements
 ------------
@@ -61,38 +86,33 @@ The proxy sets the following headers on forwarded requests:
 
 - ``X-Forwarded-For``: the IP address of the visitor.
 - ``X-Forwarded-Host``: the public hostname the visitor used
-  (``<xxxxx>.u.openport.io``).
-- ``Host`` is rewritten to ``127.0.0.1:<your local port>``. If your
-  application validates the ``Host`` header, allow this value or configure it
-  to trust the ``X-Forwarded-Host`` header instead.
+  (``<xxxxxxxx>.u.openport.io``).
+- ``X-Forwarded-Proto``: ``http`` or ``https``.
+- ``Host``: the public forwarded hostname (``<xxxxxxxx>.u.openport.io``). If your
+  application maintains a list of allowed hosts, add this hostname to it.
 
 Access control
 --------------
 
-The :ref:`open-for-ip-link <open-for-ip-link>` protection applies to
-http-forwarded sessions like it does to regular sessions, and can be disabled
-the same way (``--ip-link-protection False`` or per key on the Keys page).
-There is no login page or client-certificate check on the forwarded hostname:
-anyone who can reach the address gets through to your application, so make
-sure the application has its own authentication.
+Anyone who knows the full ``<8 random letters>.u.openport.io`` address can
+reach your application: **no open-for-ip-link click is required** (the
+:ref:`open-for-ip-link <open-for-ip-link>` protection only gates the raw
+``openport.io:<port>`` address, not the http-forward hostname).
 
-Limitations
------------
+The address is hard to *guess* — it is 8 random letters, and the server
+rate-limits requests to unknown addresses to one per second per IP, so it
+cannot be brute-forced. It is **not** confidential, though: like any public
+hostname it travels in clear text in DNS lookups and in the TLS handshake
+(SNI), so it is visible to DNS resolvers, to the network path, and to services
+that record observed hostnames. Treat it as an unguessable URL, not a secret.
 
-HTTP forwarding is a simple request/response proxy. See
-:doc:`limitations` for the full list; the highlights:
+There is no login page or client-certificate check on the forwarded hostname,
+so **anything sensitive behind an http forward must have its own
+authentication** — don't rely on the address alone to keep it private.
 
-- **WebSockets are not supported.** Applications that need a WebSocket
-  connection (for example Home Assistant's ``/api/websocket``) will not work
-  through ``--http-forward``. Use the regular TCP port for those.
-- Server-Sent Events, streaming and chunked responses are not supported;
-  responses are buffered and delivered in one piece.
-- Request bodies are only forwarded for ``POST`` requests. ``PUT``, ``PATCH``
-  and ``DELETE`` requests are forwarded, but their bodies are dropped.
-- Long-running requests are cut off after 30 seconds.
-- The hostname is always randomly generated. Custom or vanity domains are not
-  supported.
+Custom domains
+--------------
 
-If you hit any of these, you can always fall back to the raw TCP port of the
-same session — that path proxies bytes without interpreting them, so
-WebSockets, streaming and all HTTP methods work there.
+The generated hostname is not the only option: since client 2.3.0 you can
+serve the session on a domain you own, with the TLS connection ending on your
+own machine instead of on the Openport servers. See :doc:`custom_domains`.

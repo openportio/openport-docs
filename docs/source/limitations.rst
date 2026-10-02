@@ -3,24 +3,11 @@ Known limitations
 
 Http forwarding
 ---------------
-The ``--http-forward`` proxy (see :doc:`http_forwarding`) is a simple
-request/response proxy:
-
-- **WebSockets are not supported.** The connection upgrade does not pass
-  through the proxy, so applications that rely on a WebSocket (chat apps,
-  Home Assistant, live dashboards, ...) will not work over the forwarded
-  hostname.
-- Server-Sent Events, streaming and chunked responses are not supported.
-  Responses are buffered and delivered in one piece.
-- Request bodies are only forwarded for ``POST`` requests. ``PUT``, ``PATCH``
-  and ``DELETE`` requests are forwarded, but their bodies are dropped.
-- Requests that take longer than 30 seconds are cut off.
-- The hostname is always randomly generated; custom domains are not supported.
-
-None of these limitations apply to the regular TCP port of the session (the
-``openport.io:<port>`` address): that path forwards raw bytes, so WebSockets,
-streaming and all HTTP methods work there. The trade-offs of the raw port are
-the changing port number and the lack of a matching TLS certificate.
+WebSockets, streaming, long-lived connections and all HTTP methods work over
+``--http-forward``, and you can serve the session on your own domain (see
+:doc:`custom_domains`). A custom domain needs a real CNAME record, so apex
+domains and proxied or flattened DNS records cannot be used, and a
+custom-domain forward is reachable over https only.
 
 UDP
 ---
