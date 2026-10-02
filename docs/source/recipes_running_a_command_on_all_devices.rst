@@ -40,11 +40,8 @@ See `this guide <https://www.digitalocean.com/community/tutorials/how-to-set-up-
       port=$(echo $session | jq -r .port)
       server=$(echo $session | jq -r .server)
 
-      downloadlink=https://openport.io/download/debian64/latest.deb
-
       $DRYRUN curl $link
-      $DRYRUN ssh $USER@$server -p $port wget $downloadlink
-      $DRYRUN ssh $USER@$server -p $port sudo -H dpkg -i latest.deb
+      $DRYRUN ssh $USER@$server -p $port "curl -fsSL https://openport.io/apt/install.sh | sudo sh"
       $DRYRUN ssh $USER@$server -p $port sudo -H reboot
     done
 
