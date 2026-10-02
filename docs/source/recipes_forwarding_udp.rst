@@ -1,7 +1,13 @@
 Forwarding UDP
 ==============
 
-Openport uses reverse-ssh behind the scenes, so UDP forwarding is not (yet) supported out of the box. However, with some scripting you can achieve UDP forwarding.
+.. note::
+
+   Since client 2.3.0, UDP forwarding is built in: a session forwards UDP next
+   to TCP on the same port, and the status line shows ``(tcp & udp)`` when the
+   server supports it. The recipe below is only needed for older clients.
+
+Older Openport clients only forward TCP traffic, so UDP forwarding is not supported out of the box there. However, with some scripting you can achieve UDP forwarding.
 
 This guide uses the command "socat" which is included in most Linux distributions. On windows you will need to use [Cygwin](https://cygwin.com/install.html).
 
@@ -14,14 +20,14 @@ _____________
 
 .. code-block::
 
-    socat up4-listen:1054,reuseaddr,fork -
+    socat udp4-listen:1054,reuseaddr,fork -
 
 
 Forward UDP traffic to a TCP port (6667 in this example):
 
 .. code-block::
 
-    socat tcp4-listen:127.0.0.1:6667,fork,reuseaddr udp4:localhost:1054
+    socat tcp4-listen:6667,bind=127.0.0.1,fork,reuseaddr udp4:localhost:1054
 
 Start openport to forward the TCP port to the outside world:
 

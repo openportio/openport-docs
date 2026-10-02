@@ -2,7 +2,7 @@ Welcome to Openport's documentation!
 ====================================
 
 Openport is a cloud-based port forwarding service.
-It allow you to connect to a port on your machine from the internet.
+It allows you to connect to a port on your machine from the internet.
 
 
 Contents

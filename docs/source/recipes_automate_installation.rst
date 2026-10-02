@@ -30,7 +30,13 @@ Done!
 Linux
 -----
 
-Install the .deb like you are used to:
+Install from the apt repository (see :ref:`installation`):
+
+.. code-block::
+
+    curl -fsSL https://openport.io/apt/install.sh | sudo sh
+
+Or install a downloaded .deb like you are used to:
 
 .. code-block::
 

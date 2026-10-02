@@ -1,12 +1,16 @@
 Stopping a session
 ==================
 
-You can kill shares via the manager using:
+You can list and kill sessions using:
 
 .. code-block::
 
-    openport manager --list
-    openport manager --kill <local port>
+    openport list
+    openport kill <local port>
+    openport kill-all
+
+Use ``openport rm <local port>`` if you also want to remove the session from
+the local database; this also resets the remote port.
 
 On linux and mac
 ----------------

@@ -1,10 +1,72 @@
 Release notes
 =============
 
-Download the client from `Github <https://github.com/openportio/openport-go/releases>`_
+Install the client from the apt repository (see :ref:`installation`) or download
+it from `Github <https://github.com/openportio/openport-go/releases>`_
 
 Latest Version
 --------------
+
+2.3.0
++++++
+
+Features/improvements:
+
+- TLS passthrough with end-to-end encryption: ``--tls-passthrough`` terminates
+  TLS on your machine instead of on the Openport servers, with automatic
+  Let's Encrypt certificates or your own via ``--tls-cert`` / ``--tls-key``.
+- Bring your own domain with ``--domain``: serve an http-forwarded session on a
+  (sub)domain you own. See :doc:`custom_domains`.
+- ``--local-tls`` and ``--local-proxy-protocol`` to let a local https server
+  terminate TLS itself and still see the visitor's real IP.
+- UDP forwarding: sessions now forward UDP next to TCP on the same port
+  (also over the websocket transport). The status line shows ``(tcp & udp)``
+  when the server supports it.
+- Signed apt repository, so updates arrive through ``apt upgrade``
+  (see :ref:`installation`).
+- New ``rotate-key`` command to replace a machine's key; reserved ports are
+  carried over.
+- Stronger keys: new keys are 4096-bit, the client no longer adopts the user's
+  personal SSH key, and weak keys are rotated on ``register``.
+- The client now verifies the server's SSH host key.
+- A loud warning when using ``--no-ssl``.
+
+Bugfixes:
+
+- ``--exit-on-failure-timeout`` now always fires when the connection fails.
+- Patched reachable denial-of-service vulnerabilities in the ssh library
+  (GO-2026-6354, GO-2026-6355).
+
+Various:
+
+- Replaced the cgo sqlite driver with a pure-Go one, improving portability.
+- Releases are now built with goreleaser; rpm, mac and windows artifacts are
+  published with a signed SHA256SUMS file.
+- Security scanning and SBOM generation in CI.
+
+Previous Versions
+-----------------
+
+2.2.3
++++++
+
+- Fixed a panic when multiple routines write to the same websocket channel
+  (`issue #6 <https://github.com/openportio/openport-go/issues/6>`_).
+- Fixed restarting sessions that were created by client version 1.3.0.
+- The ``selftest`` command no longer stores its sessions in the local database.
+- Updated to golang 1.25 and updated all dependencies.
+
+2.2.2
++++++
+
+- Dependency upgrades (golang.org/x/crypto, golang.org/x/net, gorilla, ...).
+- Stability fixes around the stored connection state.
+
+2.2.1
++++++
+
+- Added the ``selftest`` command.
+- Fixed the error "user: lookup userid 0: invalid argument".
 
 2.2.0
 +++++
@@ -31,10 +93,6 @@ Various:
 - Upgraded to golang version 1.21.5
 - Also releasing the raw binaries
 - The armv7 binary have been tested on an openwrt router.
-
-
-Previous Versions
------------------
 
 
 2.1.0
