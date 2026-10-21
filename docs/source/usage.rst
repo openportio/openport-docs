@@ -37,6 +37,20 @@ Examples:
 Since client 2.3.0, a session forwards UDP as well as TCP on the same port
 number; the status line shows ``(tcp & udp)`` when the server supports it.
 
+Connecting to your devices
+__________________________
+
+Devices registered to the same account can reach each other's shared ports by the
+device name from https://openport.io/user/keys :
+
+.. code-block::
+
+    openport ssh root@home-pc
+    openport connect home-pc 3306
+    openport connect home-pc 5432 exec 'psql -h localhost -p $port -U postgres'
+
+See :doc:`recipes_create_a_forward_tunnel` for the details.
+
 .. _register-key:
 
 Linking a key to your account
