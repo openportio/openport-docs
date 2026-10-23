@@ -6,6 +6,25 @@ Consider next scenario:
 I have a pc at home, that I want to contact from my work.
 Both locations are firewalled and do not allow outgoing connections to ports other than 80 (http) and 443 (https).
 
+Enabling forward tunnels
+________________________
+
+Forward tunnels are disabled by default, because they let one device in your
+organisation reach the ports of the others. Devices often run in networks you do not
+trust, so you choose whether they may reach each other.
+
+An organisation admin enables them on https://openport.io/user/organisation/ by
+ticking **Allow forward tunnels** and saving. While they are disabled, ``connect``,
+``ssh`` and ``forward`` stop with:
+
+.. code-block::
+
+    Forward tunnels are disabled for this organisation. An organisation admin can enable them at https://openport.io/user/organisation/ .
+
+Once enabled, any device in the organisation can reach any other device. To limit which
+devices can reach which, put them in device-groups on the same page: a device that is in
+a device-group can only connect to devices in one of its own groups.
+
 Connecting by device name
 _________________________
 
@@ -53,6 +72,7 @@ exit code:
 
 Notes:
 
+- Forward tunnels must be enabled for your organisation, see `Enabling forward tunnels`_.
 - Both machines must be registered to the same account, and the device name must be
   unique within your account. You can rename devices on https://openport.io/user/keys .
 - If the connection fails with "Please pass request_port ...", the server does not

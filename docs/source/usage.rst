@@ -49,7 +49,8 @@ device name from https://openport.io/user/keys :
     openport connect home-pc 3306
     openport connect home-pc 5432 exec 'psql -h localhost -p $port -U postgres'
 
-See :doc:`recipes_create_a_forward_tunnel` for the details.
+Forward tunnels are disabled by default; an organisation admin enables them on
+https://openport.io/user/organisation/ . See :doc:`recipes_create_a_forward_tunnel` for the details.
 
 .. _register-key:
 
