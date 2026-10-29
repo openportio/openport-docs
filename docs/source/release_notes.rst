@@ -7,6 +7,45 @@ it from `Github <https://github.com/openportio/openport-go/releases>`_
 Latest Version
 --------------
 
+2.4.0
++++++
+
+Features/improvements:
+
+- Connect to your own devices by name: ``openport ssh [user@]<device-name>``
+  opens a tunnel to a device's ssh server and starts ssh through it, and
+  ``openport connect <device-name> <port>`` does the same for any port. Give a
+  device its name with ``openport register <token> --name <device-name>``.
+  See :doc:`recipes_create_a_forward_tunnel`.
+- ``connect`` and ``forward`` can run a command once the tunnel is up with
+  ``exec '<command>'``; ``$port`` is replaced by the local port and the tunnel
+  lives as long as the command.
+- Forward tunnels are off by default. An organisation admin enables them on
+  https://openport.io/user/organisation/ and can limit which devices reach
+  which with device-groups.
+- ``openport ssh -p <port>`` selects the port of the ssh server on the device
+  (default 22). Grouped short ssh options like ``-Ai key.pem`` are parsed as
+  ssh does.
+
+Bugfixes:
+
+- ``openport kill <port>`` now also stops ``forward`` and ``connect`` sessions
+  by their local port, as shown by ``openport list``.
+- Ctrl-c aborts ``connect`` and ``ssh`` while the tunnel is still connecting,
+  instead of being ignored until the command has started.
+- A session stopped with ctrl-c no longer comes back on the next reboot:
+  ctrl-c clears the restart command, while ``openport kill`` keeps the
+  session restartable (see :doc:`faq_how_can_i_stop_a_share`).
+
+Various:
+
+- Releases attach an unsigned mac dmg next to the signed packages, and always
+  publish the raw Windows and Linux binaries.
+- Dependency updates for security-scan findings (Go 1.27.3, x/net).
+
+Previous Versions
+-----------------
+
 2.3.0
 +++++
 
@@ -43,9 +82,6 @@ Various:
 - Releases are now built with goreleaser; rpm, mac and windows artifacts are
   published with a signed SHA256SUMS file.
 - Security scanning and SBOM generation in CI.
-
-Previous Versions
------------------
 
 2.2.3
 +++++
