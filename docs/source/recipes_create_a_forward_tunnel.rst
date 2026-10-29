@@ -49,6 +49,12 @@ Extra ssh options and a remote command go where ssh expects them:
 
     openport ssh -i ~/.ssh/id_ed25519 myhomeuser@home-pc uptime
 
+``-p`` is the port of the ssh server on the device, for when it does not listen on 22:
+
+.. code-block::
+
+    openport ssh -p 2222 myhomeuser@home-pc
+
 For other ports and protocols, ``connect`` opens the tunnel without assuming ssh:
 
 .. code-block::
