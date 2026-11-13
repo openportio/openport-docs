@@ -1,22 +1,50 @@
-IP link protection
-==================
-
 .. _security_ip_link_protection:
 
-Opening a port from your pc to the internet sounds dangerous, and it is. That's why openport has build-in protection, that requires a user to know a unique token when he wants to access your port.
+Open-for-ip link protection
+===========================
 
-Let's say you want to share your ssh connection, you will get something like
+A freshly opened port accepts nobody. Before a visitor can connect, they have
+to open a link that contains a secret token; that tells the Openport server to
+let their IP address through. Port scanners and anyone else who merely finds
+the port see it as closed.
+
+When you start a session, the client prints the link:
 
 .. code-block::
 
     $ openport 22
-    INFO - Now forwarding remote port openport.io:12345 to localhost:22 .
-    You can keep track of your shares at https://openport.io/user .
-    You are now connected. You still can transfer 10000 megabyte this month.
-    Tell the one you are sending this link to, to first go here: https://openport.io/l/12345/abscsqdfklmagsdgq . This will allow his IP to contact you.
+    Now forwarding remote port openport.io:12345 to localhost:22 .
+    Tell the one you are sending this link, to first visit https://openport.io/l/12345/abscsqdfklmagsdgq . This will allow their IP to contact you.
 
-As long as the user on the other end of the line does not know this link, he cannot reach you, and so you are safe from intruders. Try it yourself!
+Send that link to the person who needs access. Once they have opened it, they
+can connect to ``openport.io:12345`` from the IP address they opened it from.
+You can find the link again on the
+`sessions page <https://openport.io/user/sessions>`_.
 
-You can also find this link in 'My Openport'>'Sessions'.
+How it behaves
+--------------
 
-You can disable this feature using the 'Edit' button in the 'clients' tab in 'My Openport', but this is not recommended.
+- Access is granted **per IP address** and lasts **24 hours** after the link
+  was opened. After that the visitor opens the link again.
+- Everyone behind the same public IP address, such as an office network, gets
+  access together.
+- The link is a credential. Whoever has it can let themselves in, so share it
+  over a channel you trust.
+- You can see who opened your links through the
+  :ref:`API <api-open-for-ip-link-click>`.
+- The protection covers the session's port. The hostname of an
+  :doc:`http forward <http_forwarding>` is not gated by it.
+
+Turning it off
+--------------
+
+For a service that must be reachable by anyone, for example a public web
+server or a webhook endpoint, you can disable the protection:
+
+- for one session, by starting it with ``--ip-link-protection False``;
+- for all sessions of a device, by unticking **ip link protection** when
+  editing the device on the `keys page <https://openport.io/user/keys>`_.
+
+The port is then open to the whole internet, so make sure the service behind
+it authenticates its users. Consider setting a
+:ref:`connection rate limit <security_brute_force_blocking>` as well.
